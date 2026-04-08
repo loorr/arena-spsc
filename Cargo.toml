@@ -1,0 +1,36 @@
+[package]
+name = "arena-spsc"
+version = "0.1.0"
+edition = "2021"
+description = "A lock-free single-producer single-consumer byte channel backed by a flat arena"
+license = "MIT"
+keywords = ["spsc", "lock-free", "arena", "channel", "low-latency"]
+categories = ["concurrency", "data-structures"]
+
+[dependencies]
+libc = "0.2"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+crossbeam-channel = "0.5"
+crossbeam-queue = "0.3"
+disruptor = "4.0.0"
+ringbuf = "0.4"
+rtrb = "0.3"
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[[bench]]
+name = "send_parts"
+harness = false
+
+[[bench]]
+name = "latency"
+harness = false
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1

@@ -1,0 +1,5 @@
+/target
+Cargo.lock
+.idea/
+.claude/
+criterion-results.tar.gz

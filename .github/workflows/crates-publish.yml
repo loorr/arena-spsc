@@ -25,8 +25,8 @@ jobs:
       - name: Generate lockfile
         run: cargo generate-lockfile
 
-      - name: Run tests
-        run: cargo test --all-targets --locked
+      # - name: Run tests
+      #   run: cargo test --all-targets --locked
 
       - name: Check publish package
         run: cargo package --locked

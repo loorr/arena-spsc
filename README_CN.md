@@ -23,7 +23,7 @@
 
 ```toml
 [dependencies]
-arena-spsc = { git = "https://github.com/example/arena-spsc" }
+arena-spsc = "0.1.0"
 ```
 
 ```rust
@@ -51,6 +51,21 @@ while !producer.send(b"world") { spin_pause(); }
 
 let received = worker.join().unwrap();
 assert_eq!(received, vec![b"hello".to_vec(), b"world".to_vec()]);
+```
+
+## 自动发布
+
+现在 GitHub Actions 会在 PR 和推送到 `main` 时执行 `cargo test --all-targets --locked`。
+
+如需自动发布到 crates.io：
+
+1. 在仓库 Secrets 中添加 `CARGO_REGISTRY_TOKEN`，值为你的 crates.io API token。
+2. 更新 `Cargo.toml` 里的 `version`。
+3. 推送与版本一致的 Git 标签，例如 `v0.1.0`。
+
+```bash
+git tag v0.1.0
+git push origin main --follow-tags
 ```
 
 ## 设计

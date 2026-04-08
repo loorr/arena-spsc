@@ -23,7 +23,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-arena-spsc = { git = "https://github.com/example/arena-spsc" }
+arena-spsc = "0.1.0"
 ```
 
 ```rust
@@ -51,6 +51,21 @@ while !producer.send(b"world") { spin_pause(); }
 
 let received = worker.join().unwrap();
 assert_eq!(received, vec![b"hello".to_vec(), b"world".to_vec()]);
+```
+
+## Release Automation
+
+GitHub Actions now runs `cargo test --all-targets --locked` on pull requests and pushes to `main`.
+
+To publish to crates.io automatically:
+
+1. Add a repository secret named `CARGO_REGISTRY_TOKEN` with your crates.io API token.
+2. Bump `version` in `Cargo.toml`.
+3. Push a matching Git tag such as `v0.1.0`.
+
+```bash
+git tag v0.1.0
+git push origin main --follow-tags
 ```
 
 ## Design
